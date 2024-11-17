@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Snake</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #0a0a1f;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .game-container {
+      position: relative;
+    }
+    canvas {
+      border: 2px solid #2196F3;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #2196F3;
+    }
+    #score {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #2196F3;
+      font-size: 24px;
+      text-shadow: 0 0 10px #2196F3;
+    }
+    #highScore {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #00ff00;
+      font-size: 20px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+    .game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      border: 2px solid #2196F3;
+      box-shadow: 0 0 20px #2196F3;
+    }
+    .game-over h2 {
+      color: #2196F3;
+      margin: 0 0 20px 0;
+      font-size: 32px;
+      text-transform: uppercase;
+    }
+    .game-over p {
+      color: #fff;
+      margin: 10px 0;
+    }
+    .game-over button {
+      background: #2196F3;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .game-over button:hover {
+      background: #1976D2;
+      box-shadow: 0 0 10px #2196F3;
+    }
+    @keyframes celebrate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .celebrating {
+      animation: celebrate 0.5s ease infinite;
+    }
+    .particle {
+      position: absolute;
+      pointer-events: none;
+      background: #2196F3;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <div id="highScore">High Score: 0</div>
+    <div id="score">Score: 0</div>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="game-over" id="gameOver">
+      <h2>Game Over</h2>
+      <p id="finalScore">Score: 0</p>
+      <p id="newHighScore" style="color: #00ff00; display: none;">New High Score! 🏆</p>
+      <button onclick="resetGame()">Play Again</button>
+    </div>
+  </div>
+  <script type="module" src="/src/game.js"></script>
+</body>
+</html>
