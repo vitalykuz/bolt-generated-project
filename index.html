@@ -41,30 +41,45 @@
       font-size: 20px;
       text-shadow: 0 0 10px #00ff00;
     }
-    .game-over {
+    .screen {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.9);
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
       text-align: center;
-      display: none;
       border: 2px solid #2196F3;
       box-shadow: 0 0 20px #2196F3;
+      min-width: 300px;
     }
-    .game-over h2 {
+    .screen h2 {
       color: #2196F3;
       margin: 0 0 20px 0;
       font-size: 32px;
       text-transform: uppercase;
     }
-    .game-over p {
+    .screen p {
       color: #fff;
       margin: 10px 0;
     }
-    .game-over button {
+    .screen input {
+      background: rgba(33, 150, 243, 0.1);
+      border: 2px solid #2196F3;
+      padding: 10px;
+      color: white;
+      border-radius: 5px;
+      margin: 10px 0;
+      width: 200px;
+      font-size: 16px;
+      text-align: center;
+    }
+    .screen input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #2196F3;
+    }
+    .screen button {
       background: #2196F3;
       border: none;
       padding: 10px 20px;
@@ -75,7 +90,7 @@
       font-size: 16px;
       transition: all 0.3s ease;
     }
-    .game-over button:hover {
+    .screen button:hover {
       background: #1976D2;
       box-shadow: 0 0 10px #2196F3;
     }
@@ -93,15 +108,34 @@
       background: #2196F3;
       border-radius: 50%;
     }
+    #playerName {
+      position: absolute;
+      top: -110px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #2196F3;
+      font-size: 20px;
+      text-shadow: 0 0 10px #2196F3;
+    }
   </style>
 </head>
 <body>
   <div class="game-container">
+    <div id="playerName"></div>
     <div id="highScore">High Score: 0</div>
     <div id="score">Score: 0</div>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <div class="game-over" id="gameOver">
+    
+    <div class="screen" id="startScreen">
+      <h2>Snake Game</h2>
+      <p>Enter your name to start:</p>
+      <input type="text" id="playerNameInput" maxlength="15" placeholder="Your Name">
+      <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div class="screen" id="gameOver" style="display: none;">
       <h2>Game Over</h2>
+      <p id="playerNameFinal"></p>
       <p id="finalScore">Score: 0</p>
       <p id="newHighScore" style="color: #00ff00; display: none;">New High Score! 🏆</p>
       <button onclick="resetGame()">Play Again</button>

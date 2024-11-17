@@ -3,8 +3,11 @@ const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
 const highScoreElement = document.getElementById('highScore');
 const gameOverScreen = document.getElementById('gameOver');
+const startScreen = document.getElementById('startScreen');
 const finalScoreElement = document.getElementById('finalScore');
 const newHighScoreElement = document.getElementById('newHighScore');
+const playerNameElement = document.getElementById('playerName');
+const playerNameFinalElement = document.getElementById('playerNameFinal');
 
 const gridSize = 20;
 const tileCount = canvas.width / gridSize;
@@ -18,6 +21,8 @@ let highScore = 0;
 let gameSpeed = 100;
 let gameLoop;
 let particles = [];
+let playerName = '';
+let gameStarted = false;
 
 class Particle {
   constructor(x, y) {
@@ -73,7 +78,6 @@ function clearCanvas() {
   ctx.fillStyle = '#0a0a1f';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   
-  // Draw grid
   ctx.strokeStyle = 'rgba(33, 150, 243, 0.1)';
   for (let i = 0; i < tileCount; i++) {
     ctx.beginPath();
@@ -198,6 +202,7 @@ function gameOver() {
     newHighScoreElement.style.display = 'none';
   }
   
+  playerNameFinalElement.textContent = `Player: ${playerName}`;
   finalScoreElement.textContent = `Score: ${score}`;
   gameOverScreen.style.display = 'block';
 }
@@ -228,7 +233,23 @@ window.resetGame = function() {
   gameLoop = setInterval(drawGame, gameSpeed);
 };
 
+window.startGame = function() {
+  const input = document.getElementById('playerNameInput');
+  playerName = input.value.trim() || 'Player';
+  playerNameElement.textContent = playerName;
+  startScreen.style.display = 'none';
+  gameStarted = true;
+  resetGame();
+};
+
 document.addEventListener('keydown', (e) => {
+  if (!gameStarted) {
+    if (e.key === 'Enter') {
+      startGame();
+    }
+    return;
+  }
+
   if (gameOverScreen.style.display === 'block') {
     if (e.key === 'Enter' || e.key === ' ') {
       resetGame();
@@ -252,4 +273,5 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-gameLoop = setInterval(drawGame, gameSpeed);
+// Initialize game
+document.getElementById('playerNameInput').focus();
